@@ -28,7 +28,7 @@ DevSync is a full-stack application designed to help developers **synchronize, m
 ### Backend
 - **Node.js + Express**
 - **TypeScript**
-- **MongoDB (Mongoose)** or **PostgreSQL (Prisma)** (depending on your setup)
+- **MongoDB with Prisma ORM
 - **JWT Authentication**
 - **dotenv** for environment management
 
@@ -60,7 +60,7 @@ devsync/
 ---
 
 
-// To Follow needed to be fixed
+// To Follow needed to be fixed - still in development mode at the moment
 
 ## ⚙️ Installation
 
