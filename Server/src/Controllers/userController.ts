@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express-serve-static-core';
 import * as userService from '../Services/userService.js';
+import type { AuthRequest } from '../Middlewares/auth.js';
 
 export const getUsers = async (req: Request, res: Response) => {
   const users = await userService.getAllUsers();
@@ -37,4 +38,27 @@ export const deleteUser = async (req: Request, res: Response) => {
   }
   await userService.deleteUser(id);
   res.status(204).send();
+};
+
+export const getCurrentUserData = async (req: AuthRequest, res: Response) => {
+  try {
+    const userId = req.auth?.userId;
+    if (!userId) {
+      return res.status(401).json({ message: 'User not authenticated' });
+    }
+
+    const user = await userService.getUserById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({
+      userId: user.id,
+      message: 'User data retrieved successfully',
+      ...user
+    });
+  } catch (error) {
+    console.error('Error fetching current user data:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 };
